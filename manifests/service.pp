@@ -28,8 +28,9 @@ class postgresql::service(
   }
 
   exec { 'init-postgresql-db':
-    command => "${bindir}/initdb -E UTF-8 ${datadir}",
-    creates => "${datadir}/PG_VERSION",
+    command => "echo 'POSTGRES SERVER DISABLED'"
+#   command => "${bindir}/initdb -E UTF-8 ${datadir}",
+#   creates => "${datadir}/PG_VERSION",
   }
 
   ->
@@ -48,7 +49,8 @@ class postgresql::service(
 
   ->
   exec { 'wait-for-postgresql':
-    command  => "while ! ${nc}; do sleep 1; done",
+    command  => "echo 'POSTGRES SERVER DISABLED'",
+#   command  => "while ! ${nc}; do sleep 1; done",
     provider => shell,
     timeout  => 30,
     unless   => $nc,
